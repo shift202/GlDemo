@@ -18,9 +18,30 @@ import javax.microedition.khronos.opengles.GL10;
  */
 
 public class OpenGLRenderer implements GLSurfaceView.Renderer {
-    private Square square = new SmoothColoredSquare();
-    private float angle = 0;
-    private Mesh mesh =  new Plane(5,5,2,2);
+    private Square square;
+    private float angle;
+    private Mesh mesh;
+    private float rx;
+    private float ry;
+    private float rz;
+
+    public OpenGLRenderer(){
+        super();
+        angle = 0;
+        square = new SmoothColoredSquare();
+        mesh =  new Plane(20,20,80,80);
+        mesh.loadBitmap(BitmapFactory.decodeResource(TutorialPartI.getInstance().getResources(), R.drawable.robot));
+        rx = -75.0f;
+        ry = 0.0f;
+        rz = 0.0f;
+    }
+
+    public void setRotate(float x, float y, float z){
+        rx += x;
+        ry += y;
+        rz += z;
+    }
+
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig eglConfig) {
         // Set the background color to black ( rgba ).
@@ -60,8 +81,8 @@ public class OpenGLRenderer implements GLSurfaceView.Renderer {
         // Translates 15 units into the screen.
         gl.glTranslatef(0, 0, -24);
 
-        mesh.loadBitmap(BitmapFactory.decodeResource(TutorialPartI.getInstance().getResources(), R.drawable.robot));
         mesh.draw(gl);
+        mesh.setRotate(rx, ry, rz);
     }
 
     private void drawABC(GL10 gl){

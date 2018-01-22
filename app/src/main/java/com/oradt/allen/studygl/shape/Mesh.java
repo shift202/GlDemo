@@ -166,7 +166,19 @@ public class Mesh {
 
     public void setRotate(float x, float y, float z){
         rx = x;
+        if(rx < -75){
+            rx = -75.0f;
+        }
+        else if(rx > -35) {
+            rx = -45.0f;
+        }
         ry = y;
+        if(ry < -15){
+            ry = -15.0f;
+        }
+        else if(ry > 15) {
+            ry = 15.0f;
+        }
         rz = z;
     }
 
